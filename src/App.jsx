@@ -9,6 +9,7 @@ const pageData = {
       "我们相信，小团队也可以长期、稳定、认真地创造产品。先从具体问题出发，做简洁、可信、可持续演进的工具、社交产品与企业服务。我们希望公司能够赚到钱、可持续经营；也期待在踏实经营的同时，逐步探索社会理想得以实现的路径。",
     companyIntro:
       "创造小舍是一家以长期产品创造为核心的小型信息技术公司。当前重点探索个人效率工具、开发者工具、社交产品与企业 SaaS。我们更关注真实需求、产品完成度与可持续经营，而不是短期概念包装。我们并不讳言盈利：健康的商业模式是继续做产品的前提；在此基础上，我们愿意留出空间，在商业与社会价值之间做审慎、长期的探索。",
+    contactEmail: "contact@chuangzaoshe.space",
   },
   principles: ["少做空泛叙事", "先解决真实问题", "允许慢，但不粗糙", "产品长期演进"],
   products: [
@@ -51,6 +52,8 @@ function validatePageData(data) {
   return {
     hasLegalCompanyName: Boolean(data.company.legalName),
     hasShortCompanyName: Boolean(data.company.shortName),
+    hasContactEmail:
+      typeof data.company.contactEmail === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.company.contactEmail),
     hasHeroCopy: Boolean(data.company.heroLineA && data.company.heroLineB && data.company.summary),
     hasFourProducts: data.products.length === 4,
     hasAllExpectedProducts: expectedProductNames.every((name) => productNames.includes(name)),
@@ -76,6 +79,7 @@ function runSelfChecks() {
 
   console.assert(result.hasLegalCompanyName, "Expected legal company name to be present.");
   console.assert(result.hasShortCompanyName, "Expected short company name to be present.");
+  console.assert(result.hasContactEmail, "Expected a valid contact email.");
   console.assert(result.hasHeroCopy, "Expected hero copy to be complete.");
   console.assert(result.hasFourProducts, "Expected exactly four product entries.");
   console.assert(result.hasAllExpectedProducts, "Expected all required products to be present.");
@@ -116,10 +120,11 @@ function ArrowMark() {
   );
 }
 
-function LinkButton({ children, href, secondary }) {
+function LinkButton({ children, href, secondary, ...rest }) {
   return (
     <a
       href={href}
+      {...rest}
       className={cls(
         "group inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-neutral-950",
         secondary
@@ -179,8 +184,12 @@ export default function App() {
               <div className="text-xs text-neutral-400">{company.englishTagline}</div>
             </div>
           </div>
-          <div className="hidden md:block">
-            <LinkButton href="#company" secondary>
+          <div>
+            <LinkButton
+              href={`mailto:${company.contactEmail}?subject=${encodeURIComponent("合作咨询")}`}
+              secondary
+              aria-label={`联系合作，发送邮件至 ${company.contactEmail}`}
+            >
               联系合作
               <ArrowMark />
             </LinkButton>
@@ -261,6 +270,15 @@ export default function App() {
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.25em] text-neutral-500">Company</p>
             <h2 className="mt-3 text-3xl font-semibold">{company.legalName}</h2>
+            <p className="mt-5 text-sm text-neutral-400">
+              联系合作：{" "}
+              <a
+                className="font-medium text-white underline decoration-white/30 underline-offset-4 transition hover:decoration-white"
+                href={`mailto:${company.contactEmail}?subject=${encodeURIComponent("合作咨询")}`}
+              >
+                {company.contactEmail}
+              </a>
+            </p>
           </div>
           <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 text-neutral-300">
             <p className="leading-8">{company.companyIntro}</p>
