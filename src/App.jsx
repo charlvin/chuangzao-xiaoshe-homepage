@@ -1,103 +1,6 @@
-const pageData = {
-  company: {
-    shortName: "创造小舍",
-    legalName: "创造小舍（苏州）信息技术有限公司",
-    englishTagline: "Suzhou · Information Technology",
-    heroLineA: "一个一人公司，",
-    heroLineB: "想做点好产品。",
-    summary:
-      "我们相信，小团队也可以长期、稳定、认真地创造产品。先从具体问题出发，做简洁、可信、可持续演进的工具、社交产品与企业服务。我们希望公司能够赚到钱、可持续经营；也期待在踏实经营的同时，逐步探索社会理想得以实现的路径。",
-    companyIntro:
-      "创造小舍是一家以长期产品创造为核心的小型信息技术公司。当前重点探索个人效率工具、开发者工具、社交产品与企业 SaaS。我们更关注真实需求、产品完成度与可持续经营，而不是短期概念包装。我们并不讳言盈利：健康的商业模式是继续做产品的前提；在此基础上，我们愿意留出空间，在商业与社会价值之间做审慎、长期的探索。",
-    contactEmail: "contact@chuangzaoshe.space",
-  },
-  principles: ["少做空泛叙事", "先解决真实问题", "允许慢，但不粗糙", "产品长期演进"],
-  products: [
-    {
-      category: "工具类",
-      name: "RealSIM Clipboard",
-      description: "一个简单、轻量、可靠的粘贴板应用。聚焦日常复制、整理、复用，让信息流转更顺手。",
-      symbol: "⌘C",
-      status: "规划 / 打磨中",
-      docLinks: [
-        { label: "Support", href: "#realsim-clipboard-support" },
-        { label: "Privacy Policy", href: "#realsim-clipboard-privacy" },
-      ],
-    },
-    {
-      category: "工具类",
-      name: "DevHelper",
-      description: "面向独立开发者与小团队的开发者助手。减少重复配置、流程查找与上下文切换。",
-      symbol: "{ }",
-      status: "规划 / 打磨中",
-    },
-    {
-      category: "社交类",
-      name: "社交产品",
-      description: "围绕真实关系、地理位置与社区协作展开的社交方向产品。当前仍处于开发与验证阶段。",
-      symbol: "···",
-      status: "开发中",
-    },
-    {
-      category: "SaaS 类",
-      name: "BizRocker",
-      description: "面向企业流程、协作与业务管理的 SaaS 产品方向，帮助小团队把复杂业务变得更清楚。",
-      symbol: "BR",
-      status: "产品设计中",
-    },
-  ],
-};
-
-function validatePageData(data) {
-  const expectedProductNames = ["RealSIM Clipboard", "DevHelper", "社交产品", "BizRocker"];
-  const productNames = data.products.map((product) => product.name);
-  const uniqueProductNames = new Set(productNames);
-
-  return {
-    hasLegalCompanyName: Boolean(data.company.legalName),
-    hasShortCompanyName: Boolean(data.company.shortName),
-    hasContactEmail:
-      typeof data.company.contactEmail === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.company.contactEmail),
-    hasHeroCopy: Boolean(data.company.heroLineA && data.company.heroLineB && data.company.summary),
-    hasFourProducts: data.products.length === 4,
-    hasAllExpectedProducts: expectedProductNames.every((name) => productNames.includes(name)),
-    productNamesAreUnique: uniqueProductNames.size === productNames.length,
-    productsHaveRequiredFields: data.products.every(
-      (product) =>
-        Boolean(product.category) &&
-        Boolean(product.name) &&
-        Boolean(product.description) &&
-        Boolean(product.symbol) &&
-        Boolean(product.status)
-    ),
-    hasFourPrinciples: data.principles.length === 4,
-    principlesAreNonEmpty: data.principles.every((item) => typeof item === "string" && item.length > 0),
-    usesLocalSymbolsOnly: data.products.every(
-      (product) => typeof product.symbol === "string" && product.symbol.length <= 3
-    ),
-  };
-}
-
-function runSelfChecks() {
-  const result = validatePageData(pageData);
-
-  console.assert(result.hasLegalCompanyName, "Expected legal company name to be present.");
-  console.assert(result.hasShortCompanyName, "Expected short company name to be present.");
-  console.assert(result.hasContactEmail, "Expected a valid contact email.");
-  console.assert(result.hasHeroCopy, "Expected hero copy to be complete.");
-  console.assert(result.hasFourProducts, "Expected exactly four product entries.");
-  console.assert(result.hasAllExpectedProducts, "Expected all required products to be present.");
-  console.assert(result.productNamesAreUnique, "Expected product names to be unique.");
-  console.assert(
-    result.productsHaveRequiredFields,
-    "Expected every product to include category, name, description, symbol, and status."
-  );
-  console.assert(result.hasFourPrinciples, "Expected exactly four product principles.");
-  console.assert(result.principlesAreNonEmpty, "Expected every product principle to be non-empty.");
-  console.assert(result.usesLocalSymbolsOnly, "Expected product symbols to be local text symbols only.");
-}
-
-runSelfChecks();
+import { useLayoutEffect } from "react";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { pageData } from "./siteData.js";
 
 function cls(...items) {
   return items.filter(Boolean).join(" ");
@@ -141,13 +44,20 @@ function LinkButton({ children, href, secondary, ...rest }) {
   );
 }
 
-function InlineDocLink({ href, children }) {
+const docLinkClassName =
+  "font-medium text-white underline decoration-white/30 underline-offset-4 transition hover:decoration-white";
+
+function ProductDocLink({ link }) {
+  if (link.to) {
+    return (
+      <Link className={docLinkClassName} to={link.to}>
+        {link.label}
+      </Link>
+    );
+  }
   return (
-    <a
-      href={href}
-      className="font-medium text-white underline decoration-white/30 underline-offset-4 transition hover:decoration-white"
-    >
-      {children}
+    <a className={docLinkClassName} href={link.href}>
+      {link.label}
     </a>
   );
 }
@@ -167,144 +77,12 @@ function ProductCard({ product, index }) {
       {product.docLinks?.length ? (
         <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-white/10 pt-5 text-sm">
           {product.docLinks.map((link) => (
-            <InlineDocLink key={link.href} href={link.href}>
-              {link.label}
-            </InlineDocLink>
+            <ProductDocLink key={link.to ?? link.href} link={link} />
           ))}
         </div>
       ) : null}
       <div className="mt-8 text-xs text-neutral-600">方向 {String(index + 1).padStart(2, "0")}</div>
     </article>
-  );
-}
-
-function RealSIMClipboardDocs({ contactEmail }) {
-  const privacyAnchor = "#realsim-clipboard-privacy";
-
-  return (
-    <>
-      <section
-        id="realsim-clipboard-support"
-        className="scroll-mt-24 border-t border-white/10 px-6 py-16 md:px-12 lg:px-20"
-        aria-labelledby="realsim-support-heading"
-      >
-        <div className="mx-auto max-w-3xl text-neutral-300">
-          <p className="text-sm font-medium uppercase tracking-[0.25em] text-neutral-500">RealSIM Clipboard</p>
-          <h2 id="realsim-support-heading" className="mt-3 text-3xl font-semibold text-white">
-            Support
-          </h2>
-
-          <h3 className="mt-10 text-lg font-semibold text-white">Overview</h3>
-          <p className="mt-3 leading-8">
-            RealSIM Clipboard is a macOS menu bar app that keeps a local clipboard history so you can re-copy recent text,
-            files, and folders.
-          </p>
-
-          <h3 className="mt-10 text-lg font-semibold text-white">Requirements</h3>
-          <ul className="mt-3 list-inside list-disc space-y-2 leading-8">
-            <li>macOS 12 or later (as listed on the App Store).</li>
-          </ul>
-
-          <h3 className="mt-10 text-lg font-semibold text-white">FAQ</h3>
-          <dl className="mt-4 space-y-6">
-            <div>
-              <dt className="font-medium text-white">Does RealSIM Clipboard upload my clipboard to the cloud?</dt>
-              <dd className="mt-2 leading-8">
-                No. History is stored locally on your Mac. We do not operate a backend that receives your clipboard
-                contents for this app.
-              </dd>
-            </div>
-            <div>
-              <dt className="font-medium text-white">Does the app access my pasteboard?</dt>
-              <dd className="mt-2 leading-8">
-                Yes — it reads the clipboard to show history and to let you copy again. Handling stays on device unless
-                you separately use OS features outside the app.
-              </dd>
-            </div>
-            <div>
-              <dt className="font-medium text-white">How do I get help or report a problem?</dt>
-              <dd className="mt-2 leading-8">
-                Email:{" "}
-                <a
-                  className="font-medium text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
-                  href={`mailto:${contactEmail}?subject=${encodeURIComponent("RealSIM Clipboard support")}`}
-                >
-                  {contactEmail}
-                </a>
-                <br />
-                Include your macOS version, app version, and steps to reproduce.
-              </dd>
-            </div>
-            <div>
-              <dt className="font-medium text-white">Privacy</dt>
-              <dd className="mt-2 leading-8">
-                See our Privacy Policy at:{" "}
-                <InlineDocLink href={privacyAnchor}>Privacy Policy — RealSIM Clipboard</InlineDocLink>
-              </dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-
-      <section
-        id="realsim-clipboard-privacy"
-        className="scroll-mt-24 border-t border-white/10 px-6 py-16 md:px-12 lg:px-20"
-        aria-labelledby="realsim-privacy-heading"
-      >
-        <div className="mx-auto max-w-3xl text-neutral-300">
-          <p className="text-sm font-medium uppercase tracking-[0.25em] text-neutral-500">RealSIM Clipboard</p>
-          <h2 id="realsim-privacy-heading" className="mt-3 text-3xl font-semibold text-white">
-            Privacy Policy
-          </h2>
-          <p className="mt-2 text-sm text-neutral-500">Last updated: May 9, 2026</p>
-
-          <p className="mt-8 leading-8">
-            This policy describes how RealSIM Clipboard (“the App”) handles information on your device.
-          </p>
-
-          <h3 className="mt-10 text-lg font-semibold text-white">What the App accesses</h3>
-          <ul className="mt-3 list-inside list-disc space-y-2 leading-8">
-            <li>
-              Clipboard (pasteboard): the App reads clipboard content you copy so it can maintain a history and let you
-              copy items again from the menu bar UI.
-            </li>
-          </ul>
-
-          <h3 className="mt-10 text-lg font-semibold text-white">Where data is stored</h3>
-          <ul className="mt-3 list-inside list-disc space-y-2 leading-8">
-            <li>
-              Clipboard history you choose to keep is stored locally on your Mac inside the App’s sandboxed storage
-              area.
-            </li>
-            <li>
-              We do not send your clipboard contents to our servers for this App because we do not operate an application
-              backend that collects them.
-            </li>
-          </ul>
-
-          <h3 className="mt-10 text-lg font-semibold text-white">Data sharing</h3>
-          <ul className="mt-3 list-inside list-disc space-y-2 leading-8">
-            <li>We do not sell your clipboard history. We do not use it for third-party advertising in the App.</li>
-          </ul>
-
-          <h3 className="mt-10 text-lg font-semibold text-white">Contact</h3>
-          <p className="mt-3 leading-8">
-            Questions:{" "}
-            <a
-              className="font-medium text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
-              href={`mailto:${contactEmail}?subject=${encodeURIComponent("RealSIM Clipboard privacy")}`}
-            >
-              {contactEmail}
-            </a>
-          </p>
-
-          <h3 className="mt-10 text-lg font-semibold text-white">Changes</h3>
-          <p className="mt-3 leading-8">
-            We may update this policy if the App’s behaviour changes; the “Last updated” date will reflect revisions.
-          </p>
-        </div>
-      </section>
-    </>
   );
 }
 
@@ -319,7 +97,15 @@ function PrincipleItem({ item, index }) {
   );
 }
 
-export default function App() {
+function InlineDocLink({ href, children }) {
+  return (
+    <a href={href} className={docLinkClassName}>
+      {children}
+    </a>
+  );
+}
+
+function HomePage() {
   const { company, products, principles } = pageData;
 
   return (
@@ -419,8 +205,6 @@ export default function App() {
         </div>
       </section>
 
-      <RealSIMClipboardDocs contactEmail={company.contactEmail} />
-
       <section id="company" className="scroll-mt-20 border-t border-white/10 px-6 py-16 md:px-12 lg:px-20">
         <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-center">
           <div>
@@ -442,5 +226,208 @@ export default function App() {
         </div>
       </section>
     </main>
+  );
+}
+
+function RealSIMClipboardPage() {
+  const location = useLocation();
+  const { contactEmail } = pageData.company;
+  const privacyAnchor = "#realsim-clipboard-privacy";
+
+  useLayoutEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+  }, [location.pathname, location.hash]);
+
+  return (
+    <main className="min-h-screen bg-neutral-950 text-white">
+      <header className="border-b border-white/10 px-6 py-6 md:px-12 lg:px-20">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-3 text-sm font-medium text-neutral-300 transition hover:text-white"
+          >
+            <span aria-hidden="true">←</span>
+            返回官网首页
+          </Link>
+          <div className="flex items-center gap-3">
+            <Mark>⌘C</Mark>
+            <div>
+              <div className="text-sm font-semibold">RealSIM Clipboard</div>
+              <div className="text-xs text-neutral-400">{pageData.company.shortName}</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="px-6 py-14 md:px-12 lg:px-20">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-sm font-medium uppercase tracking-[0.25em] text-neutral-500">Product</p>
+          <h1 className="mt-3 text-3xl font-semibold md:text-4xl">RealSIM Clipboard</h1>
+          <p className="mt-6 leading-8 text-neutral-300">
+            RealSIM Clipboard is a lightweight menu bar companion for your Mac. It keeps a running history of what you
+            copy—text, files, and folders—so you can paste again without digging through old windows.
+          </p>
+          <ul className="mt-6 list-inside list-disc space-y-3 leading-8 text-neutral-300">
+            <li>Menu bar first: open the panel when you need it, stay out of the way when you don&apos;t.</li>
+            <li>Clipboard history for text and file references you copy in Finder and other apps.</li>
+            <li>Re-copy or clear entries on your terms; tune how much history to keep.</li>
+          </ul>
+          <p className="mt-6 leading-8 text-neutral-300">
+            Built for people who jump between documents, terminals, and Finder all day and want clipboard recall without
+            handing data to the cloud.
+          </p>
+          <p className="mt-6 rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm leading-7 text-amber-100/90">
+            Note: Clipboard contents may contain sensitive information. Only install if you trust local history on your
+            own Mac.
+          </p>
+        </div>
+      </div>
+
+      <section
+        id="realsim-clipboard-support"
+        className="scroll-mt-24 border-t border-white/10 px-6 py-16 md:px-12 lg:px-20"
+        aria-labelledby="realsim-support-heading"
+      >
+        <div className="mx-auto max-w-3xl text-neutral-300">
+          <p className="text-sm font-medium uppercase tracking-[0.25em] text-neutral-500">RealSIM Clipboard</p>
+          <h2 id="realsim-support-heading" className="mt-3 text-3xl font-semibold text-white">
+            Support
+          </h2>
+
+          <h3 className="mt-10 text-lg font-semibold text-white">Overview</h3>
+          <p className="mt-3 leading-8">
+            RealSIM Clipboard is a macOS menu bar app that keeps a local clipboard history so you can re-copy recent
+            text, files, and folders.
+          </p>
+
+          <h3 className="mt-10 text-lg font-semibold text-white">Requirements</h3>
+          <ul className="mt-3 list-inside list-disc space-y-2 leading-8">
+            <li>macOS 12 or later (as listed on the App Store).</li>
+          </ul>
+
+          <h3 className="mt-10 text-lg font-semibold text-white">FAQ</h3>
+          <dl className="mt-4 space-y-6">
+            <div>
+              <dt className="font-medium text-white">Does RealSIM Clipboard upload my clipboard to the cloud?</dt>
+              <dd className="mt-2 leading-8">
+                No. History is stored locally on your Mac. We do not operate a backend that receives your clipboard
+                contents for this app.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-medium text-white">Does the app access my pasteboard?</dt>
+              <dd className="mt-2 leading-8">
+                Yes — it reads the clipboard to show history and to let you copy again. Handling stays on device unless
+                you separately use OS features outside the app.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-medium text-white">How do I get help or report a problem?</dt>
+              <dd className="mt-2 leading-8">
+                Email:{" "}
+                <a className={docLinkClassName} href={`mailto:${contactEmail}?subject=${encodeURIComponent("RealSIM Clipboard support")}`}>
+                  {contactEmail}
+                </a>
+                <br />
+                Include your macOS version, app version, and steps to reproduce.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-medium text-white">Privacy</dt>
+              <dd className="mt-2 leading-8">
+                See our Privacy Policy at:{" "}
+                <InlineDocLink href={privacyAnchor}>Privacy Policy — RealSIM Clipboard</InlineDocLink>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section
+        id="realsim-clipboard-privacy"
+        className="scroll-mt-24 border-t border-white/10 px-6 py-16 md:px-12 lg:px-20"
+        aria-labelledby="realsim-privacy-heading"
+      >
+        <div className="mx-auto max-w-3xl text-neutral-300">
+          <p className="text-sm font-medium uppercase tracking-[0.25em] text-neutral-500">RealSIM Clipboard</p>
+          <h2 id="realsim-privacy-heading" className="mt-3 text-3xl font-semibold text-white">
+            Privacy Policy
+          </h2>
+          <p className="mt-2 text-sm text-neutral-500">Last updated: May 9, 2026</p>
+
+          <p className="mt-8 leading-8">
+            This policy describes how RealSIM Clipboard (“the App”) handles information on your device.
+          </p>
+
+          <h3 className="mt-10 text-lg font-semibold text-white">What the App accesses</h3>
+          <ul className="mt-3 list-inside list-disc space-y-2 leading-8">
+            <li>
+              Clipboard (pasteboard): the App reads clipboard content you copy so it can maintain a history and let you
+              copy items again from the menu bar UI.
+            </li>
+          </ul>
+
+          <h3 className="mt-10 text-lg font-semibold text-white">Where data is stored</h3>
+          <ul className="mt-3 list-inside list-disc space-y-2 leading-8">
+            <li>
+              Clipboard history you choose to keep is stored locally on your Mac inside the App’s sandboxed storage
+              area.
+            </li>
+            <li>
+              We do not send your clipboard contents to our servers for this App because we do not operate an application
+              backend that collects them.
+            </li>
+          </ul>
+
+          <h3 className="mt-10 text-lg font-semibold text-white">Data sharing</h3>
+          <ul className="mt-3 list-inside list-disc space-y-2 leading-8">
+            <li>We do not sell your clipboard history. We do not use it for third-party advertising in the App.</li>
+          </ul>
+
+          <h3 className="mt-10 text-lg font-semibold text-white">Contact</h3>
+          <p className="mt-3 leading-8">
+            Questions:{" "}
+            <a className={docLinkClassName} href={`mailto:${contactEmail}?subject=${encodeURIComponent("RealSIM Clipboard privacy")}`}>
+              {contactEmail}
+            </a>
+          </p>
+
+          <h3 className="mt-10 text-lg font-semibold text-white">Changes</h3>
+          <p className="mt-3 leading-8">
+            We may update this policy if the App’s behaviour changes; the “Last updated” date will reflect revisions.
+          </p>
+        </div>
+      </section>
+
+      <footer className="border-t border-white/10 px-6 py-10 md:px-12 lg:px-20">
+        <div className="mx-auto flex max-w-3xl flex-wrap gap-4 text-sm text-neutral-500">
+          <Link className={docLinkClassName} to="/realsim-clipboard#realsim-clipboard-support">
+            Support
+          </Link>
+          <Link className={docLinkClassName} to="/realsim-clipboard#realsim-clipboard-privacy">
+            Privacy Policy
+          </Link>
+          <Link className={docLinkClassName} to="/">
+            Home
+          </Link>
+        </div>
+      </footer>
+    </main>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/realsim-clipboard" element={<RealSIMClipboardPage />} />
+    </Routes>
   );
 }
