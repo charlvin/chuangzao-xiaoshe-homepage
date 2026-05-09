@@ -283,10 +283,6 @@ function RealSIMClipboardPage() {
             Built for people who jump between documents, terminals, and Finder all day and want clipboard recall without
             handing data to the cloud.
           </p>
-          <p className="mt-6 rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm leading-7 text-amber-100/90">
-            Note: Clipboard contents may contain sensitive information. Only install if you trust local history on your
-            own Mac.
-          </p>
         </div>
       </div>
 
