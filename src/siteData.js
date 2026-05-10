@@ -18,6 +18,7 @@ export const pageData = {
       name: "RealSIM Clipboard",
       description: "一个简单、轻量、可靠的粘贴板应用。聚焦日常复制、整理、复用，让信息流转更顺手。",
       symbol: "⌘C",
+      logoSrc: "/realsim-clipboard-icon.png",
       status: "规划 / 打磨中",
       docLinks: [
         { label: "Support", to: "/realsim-clipboard#realsim-clipboard-support" },
@@ -29,6 +30,7 @@ export const pageData = {
       name: "DevHelper",
       description: "面向独立开发者与小团队的开发者助手。减少重复配置、流程查找与上下文切换。",
       symbol: "{ }",
+      logoSrc: "/devhelper-icon.png",
       status: "规划 / 打磨中",
     },
     {

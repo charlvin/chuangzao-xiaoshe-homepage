@@ -19,6 +19,17 @@ function Mark({ children, large }) {
   );
 }
 
+function ProductMark({ product }) {
+  if (product.logoSrc) {
+    return (
+      <div className="flex h-12 w-12 shrink-0 overflow-hidden rounded-2xl bg-white shadow-lg">
+        <img src={product.logoSrc} alt="" className="h-full w-full object-contain p-1.5" />
+      </div>
+    );
+  }
+  return <Mark large>{product.symbol}</Mark>;
+}
+
 function ArrowMark() {
   return (
     <span aria-hidden="true" className="ml-2 inline-block transition-transform group-hover:translate-x-1">
@@ -66,7 +77,7 @@ function ProductCard({ product, index }) {
   return (
     <article className="h-full rounded-3xl border border-white/10 bg-white/[0.04] p-6 text-white shadow-xl backdrop-blur transition duration-300 hover:-translate-y-1 hover:bg-white/[0.07]">
       <div className="mb-6 flex items-center justify-between gap-4">
-        <Mark large>{product.symbol}</Mark>
+        <ProductMark product={product} />
         <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-neutral-400">
           {product.status}
         </span>
@@ -232,6 +243,7 @@ function HomePage() {
 function RealSIMClipboardPage() {
   const location = useLocation();
   const { contactEmail } = pageData.company;
+  const realsimLogo = pageData.products.find((p) => p.name === "RealSIM Clipboard")?.logoSrc;
   const privacyAnchor = "#realsim-clipboard-privacy";
 
   useLayoutEffect(() => {
@@ -257,7 +269,13 @@ function RealSIMClipboardPage() {
             返回官网首页
           </Link>
           <div className="flex items-center gap-3">
-            <Mark>⌘C</Mark>
+            {realsimLogo ? (
+              <div className="flex h-12 w-12 shrink-0 overflow-hidden rounded-2xl bg-white shadow-lg">
+                <img src={realsimLogo} alt="" className="h-full w-full object-contain p-1.5" />
+              </div>
+            ) : (
+              <Mark>⌘C</Mark>
+            )}
             <div>
               <div className="text-sm font-semibold">RealSIM Clipboard</div>
               <div className="text-xs text-neutral-400">{pageData.company.shortName}</div>
