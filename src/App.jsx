@@ -92,19 +92,8 @@ function ProductCard({ product, index }) {
           ))}
         </div>
       ) : null}
-      <div className="mt-8 text-xs text-neutral-600">方向 {String(index + 1).padStart(2, "0")}</div>
+      <div className="mt-8 text-xs text-neutral-600">Direction {String(index + 1).padStart(2, "0")}</div>
     </article>
-  );
-}
-
-function PrincipleItem({ item, index }) {
-  return (
-    <div className="flex items-center gap-4 rounded-2xl bg-white/[0.04] p-4">
-      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-sm font-semibold text-neutral-950">
-        {index + 1}
-      </div>
-      <span className="text-neutral-200">{item}</span>
-    </div>
   );
 }
 
@@ -117,7 +106,7 @@ function InlineDocLink({ href, children }) {
 }
 
 function HomePage() {
-  const { company, products, principles } = pageData;
+  const { company, products } = pageData;
 
   return (
     <main className="min-h-screen overflow-hidden bg-neutral-950 text-white">
@@ -129,7 +118,7 @@ function HomePage() {
 
         <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
-            <Mark>小舍</Mark>
+            <Mark>CX</Mark>
             <div>
               <div className="text-sm font-semibold tracking-wide">{company.shortName}</div>
               <div className="text-xs text-neutral-400">{company.englishTagline}</div>
@@ -137,24 +126,18 @@ function HomePage() {
           </div>
           <div>
             <LinkButton
-              href={`mailto:${company.contactEmail}?subject=${encodeURIComponent("合作咨询")}`}
+              href={`mailto:${company.contactEmail}?subject=${encodeURIComponent("Partnership inquiry")}`}
               secondary
-              aria-label={`联系合作，发送邮件至 ${company.contactEmail}`}
+              aria-label={`Contact Chuangzao Xiaoshe at ${company.contactEmail}`}
             >
-              联系合作
+              Contact
               <ArrowMark />
             </LinkButton>
           </div>
         </nav>
 
-        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 py-24 md:grid-cols-[1.1fr_0.9fr] md:py-32">
+        <div className="relative z-10 mx-auto max-w-7xl py-24 md:py-32">
           <section>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-neutral-300 backdrop-blur">
-              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-[10px] font-bold text-neutral-950">
-                C
-              </span>
-              {company.legalName}
-            </div>
             <h1 className="max-w-4xl text-5xl font-semibold tracking-tight md:text-7xl">
               {company.heroLineA}
               <span className="block text-neutral-400">{company.heroLineB}</span>
@@ -164,35 +147,11 @@ function HomePage() {
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <LinkButton href="#products">
-                查看产品方向
+                View Product Portfolio
                 <ArrowMark />
-              </LinkButton>
-              <LinkButton href="#vision" secondary>
-                了解公司愿景
               </LinkButton>
             </div>
           </section>
-
-          <aside id="vision" className="relative scroll-mt-24">
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-2xl backdrop-blur">
-              <div className="rounded-[1.5rem] bg-neutral-900 p-6">
-                <div className="mb-8 flex items-center justify-between gap-6">
-                  <div>
-                    <div className="text-sm text-neutral-400">Product Philosophy</div>
-                    <div className="mt-1 text-xl font-semibold">Small Team, Real Products</div>
-                  </div>
-                  <div className="rounded-full bg-white px-3 py-1 text-xs font-medium text-neutral-950">
-                    v0.1
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  {principles.map((item, index) => (
-                    <PrincipleItem key={item} item={item} index={index} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </aside>
         </div>
       </section>
 
@@ -201,14 +160,15 @@ function HomePage() {
           <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.25em] text-neutral-500">Product Matrix</p>
-              <h2 className="mt-3 text-3xl font-semibold md:text-5xl">正在构建的产品方向</h2>
+              <h2 className="mt-3 text-3xl font-semibold md:text-5xl">Product directions under active formation</h2>
             </div>
             <p className="max-w-xl text-neutral-400">
-              不追求一次性做大，而是围绕工具效率、社交连接与企业协作逐步形成产品组合。
+              The portfolio is deliberately early and practical: start with narrow workflows, learn from real usage,
+              and expand only when the product earns the right to grow.
             </p>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {products.map((product, index) => (
               <ProductCard key={product.name} product={product} index={index} />
             ))}
@@ -217,22 +177,21 @@ function HomePage() {
       </section>
 
       <section id="company" className="scroll-mt-20 border-t border-white/10 px-6 py-16 md:px-12 lg:px-20">
-        <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-center">
+        <div className="mx-auto max-w-7xl">
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.25em] text-neutral-500">Company</p>
             <h2 className="mt-3 text-3xl font-semibold">{company.legalName}</h2>
+            <p className="mt-4 text-sm text-neutral-400">English name: {company.englishName}</p>
             <p className="mt-5 text-sm text-neutral-400">
-              联系合作：{" "}
+              Partnership contact:{" "}
               <a
                 className="font-medium text-white underline decoration-white/30 underline-offset-4 transition hover:decoration-white"
-                href={`mailto:${company.contactEmail}?subject=${encodeURIComponent("合作咨询")}`}
+                href={`mailto:${company.contactEmail}?subject=${encodeURIComponent("Partnership inquiry")}`}
               >
                 {company.contactEmail}
               </a>
             </p>
-          </div>
-          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 text-neutral-300">
-            <p className="leading-8">{company.companyIntro}</p>
+            <p className="mt-3 text-sm text-neutral-500">Chinese legal name: {company.chineseLegalName}</p>
           </div>
         </div>
       </section>
@@ -266,7 +225,7 @@ function RealSIMClipboardPage() {
             className="inline-flex items-center gap-3 text-sm font-medium text-neutral-300 transition hover:text-white"
           >
             <span aria-hidden="true">←</span>
-            返回官网首页
+            Back to Company Site
           </Link>
           <div className="flex items-center gap-3">
             {realsimLogo ? (

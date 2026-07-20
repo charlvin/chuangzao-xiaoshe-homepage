@@ -1,0 +1,33 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a2744"/>
+      <stop offset="100%" stop-color="#2d4a8a"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#f5c842"/>
+      <stop offset="100%" stop-color="#e8973a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <circle cx="512" cy="480" r="310" fill="#ffffff" fill-opacity="0.04"/>
+  <circle cx="512" cy="480" r="240" fill="#ffffff" fill-opacity="0.05"/>
+  <g transform="translate(512,480)" stroke="url(#glow)" stroke-width="4" stroke-linecap="round" opacity="0.5">
+    <line x1="0" y1="-295" x2="0" y2="-245"/>
+    <line x1="209" y1="-209" x2="173" y2="-173"/>
+    <line x1="295" y1="0" x2="245" y2="0"/>
+    <line x1="209" y1="209" x2="173" y2="173"/>
+    <line x1="0" y1="295" x2="0" y2="245"/>
+    <line x1="-209" y1="209" x2="-173" y2="173"/>
+    <line x1="-295" y1="0" x2="-245" y2="0"/>
+    <line x1="-209" y1="-209" x2="-173" y2="-173"/>
+  </g>
+  <circle cx="512" cy="480" r="168" fill="url(#glow)" opacity="0.14"/>
+  <circle cx="512" cy="480" r="126" fill="url(#glow)" opacity="0.17"/>
+  <circle cx="430" cy="422" r="36" fill="#f5c842"/>
+  <path d="M430,460 Q392,492 412,542 Q428,570 456,564 Q436,532 444,508 Q452,484 430,460" fill="#f5c842"/>
+  <circle cx="594" cy="450" r="36" fill="#f5c842"/>
+  <path d="M594,488 Q632,456 612,406 Q596,378 568,384 Q588,416 580,440 Q572,464 594,488" fill="#f5c842"/>
+  <rect x="342" y="768" width="340" height="5" rx="2.5" fill="#f5c842" opacity="0.45"/>
+  <rect x="412" y="786" width="200" height="5" rx="2.5" fill="#f5c842" opacity="0.28"/>
+</svg>
