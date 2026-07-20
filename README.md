@@ -82,13 +82,15 @@ vercel deploy . -y
 vercel deploy . --prod -y
 ```
 
-Production custom domain: check Vercel project settings (not defined in this repo).
+Production site: [https://www.chuangzaoshe.space](https://www.chuangzaoshe.space).
+
+The release flow is `develop` for development/preview, followed by a merge into `main` for production. Confirm in Vercel Project Settings that the Production Branch is `main` before relying on the Git-triggered deployment; if it is not connected, deploy production manually with `vercel deploy . --prod -y`.
 
 ## Git
 
 Remote: `git@github.com:charlvin/chuangzao-xiaoshe-homepage.git`
 
-Branches: `main`, `develop` (feature work has used `develop`).
+Branches: `develop` for development/preview and `main` for production releases.
 
 Before pushing:
 
