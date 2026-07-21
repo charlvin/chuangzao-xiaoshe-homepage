@@ -4,6 +4,9 @@
     { "source": "/apps/appreleasehelper", "destination": "/appreleasehelper/product.html" },
     { "source": "/apps/appreleasehelper/privacy", "destination": "/appreleasehelper/privacy.html" },
     { "source": "/apps/appreleasehelper/support", "destination": "/appreleasehelper/support.html" },
+    { "source": "/dailysaying", "destination": "/dailysaying/product.html" },
+    { "source": "/dailysaying/privacy", "destination": "/dailysaying/privacy.html" },
+    { "source": "/dailysaying/support", "destination": "/dailysaying/support.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

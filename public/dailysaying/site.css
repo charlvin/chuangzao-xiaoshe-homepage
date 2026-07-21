@@ -1,0 +1,5 @@
+@import url("/appreleasehelper/site.css");
+
+.daily-hero::before {
+  background: #f5c8421f;
+}

@@ -69,9 +69,12 @@ vercel.json     # SPA rewrite for client-side routing
 | `/realsim-clipboard` | RealSIM Clipboard product, support, and privacy |
 | `/realsim-clipboard#realsim-clipboard-support` | Support section anchor |
 | `/realsim-clipboard#realsim-clipboard-privacy` | Privacy Policy anchor |
-| `/apps/appreleasehelper` | AppReleaseHelper bilingual product page |
-| `/apps/appreleasehelper/support` | AppReleaseHelper bilingual support page |
-| `/apps/appreleasehelper/privacy` | AppReleaseHelper bilingual privacy policy |
+| `/apps/appreleasehelper` | AppReleaseHelper product page |
+| `/apps/appreleasehelper/support` | AppReleaseHelper support page |
+| `/apps/appreleasehelper/privacy` | AppReleaseHelper privacy policy |
+| `/dailysaying` | Daily Saying product page |
+| `/dailysaying/support` | Daily Saying support page |
+| `/dailysaying/privacy` | Daily Saying privacy policy |
 
 ## Deploy (Vercel)
 

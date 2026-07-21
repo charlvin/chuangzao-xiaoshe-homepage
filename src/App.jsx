@@ -191,7 +191,6 @@ function HomePage() {
                 {company.contactEmail}
               </a>
             </p>
-            <p className="mt-3 text-sm text-neutral-500">Chinese legal name: {company.chineseLegalName}</p>
           </div>
         </div>
       </section>

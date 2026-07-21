@@ -3,7 +3,6 @@ export const pageData = {
     englishName: "Chuangzao Xiaoshe",
     shortName: "Chuangzao Xiaoshe",
     legalName: "Chuangzao Xiaoshe (Suzhou) Information Technology Co., Ltd.",
-    chineseLegalName: "创造小舍（苏州）信息技术有限公司",
     englishTagline: "Suzhou · Product Studio",
     heroLineA: "Building products",
     heroLineB: "with technology and humanity.",
@@ -31,8 +30,13 @@ export const pageData = {
       description:
         "A local-first iPhone and iPad app that schedules quotes and notes to appear in the app and on the Home Screen widget.",
       symbol: "\u201c\u201d",
-      logoSrc: "/daily-saying-logo.svg",
+      logoSrc: "/daily-saying-icon.png",
       status: "Preparing for launch",
+      docLinks: [
+        { label: "Product", href: "/dailysaying" },
+        { label: "Support", href: "/dailysaying/support" },
+        { label: "Privacy Policy", href: "/dailysaying/privacy" },
+      ],
     },
     {
       category: "Developer Tool",
@@ -75,7 +79,6 @@ function validatePageData(data) {
   return {
     hasLegalCompanyName: Boolean(data.company.legalName),
     hasEnglishCompanyName: Boolean(data.company.englishName),
-    hasChineseLegalCompanyName: Boolean(data.company.chineseLegalName),
     hasShortCompanyName: Boolean(data.company.shortName),
     hasContactEmail:
       typeof data.company.contactEmail === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.company.contactEmail),
@@ -102,7 +105,6 @@ function runSelfChecks() {
 
   console.assert(result.hasLegalCompanyName, "Expected legal company name to be present.");
   console.assert(result.hasEnglishCompanyName, "Expected English company name to be present.");
-  console.assert(result.hasChineseLegalCompanyName, "Expected Chinese legal company name to be present.");
   console.assert(result.hasShortCompanyName, "Expected short company name to be present.");
   console.assert(result.hasContactEmail, "Expected a valid contact email.");
   console.assert(result.hasHeroCopy, "Expected hero copy to be complete.");
