@@ -20,6 +20,7 @@ export const pageData = {
       logoSrc: "/realsim-clipboard-icon.png",
       status: "Polishing",
       docLinks: [
+        { label: "Product", to: "/realsim-clipboard" },
         { label: "Support", to: "/realsim-clipboard#realsim-clipboard-support" },
         { label: "Privacy Policy", to: "/realsim-clipboard#realsim-clipboard-privacy" },
       ],

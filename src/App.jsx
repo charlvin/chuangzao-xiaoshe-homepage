@@ -202,7 +202,16 @@ function RealSIMClipboardPage() {
   const location = useLocation();
   const { contactEmail } = pageData.company;
   const realsimLogo = pageData.products.find((p) => p.name === "RealSIM Clipboard")?.logoSrc;
+  const supportAnchor = "#realsim-clipboard-support";
   const privacyAnchor = "#realsim-clipboard-privacy";
+  const activeSection = location.hash === supportAnchor ? "support" : location.hash === privacyAnchor ? "privacy" : "product";
+  const productTabClass = (active) =>
+    cls(
+      "inline-flex min-h-10 items-center justify-center rounded-full border px-4 text-sm font-medium transition",
+      active
+        ? "border-white bg-white text-neutral-950"
+        : "border-white/15 bg-white/[0.04] text-neutral-300 hover:border-white/30 hover:text-white"
+    );
 
   useLayoutEffect(() => {
     if (location.hash) {
@@ -242,7 +251,36 @@ function RealSIMClipboardPage() {
         </div>
       </header>
 
-      <div className="px-6 py-14 md:px-12 lg:px-20">
+      <nav
+        className="sticky top-0 z-20 border-b border-white/10 bg-neutral-950/90 px-6 py-3 backdrop-blur md:px-12 lg:px-20"
+        aria-label="RealSIM Clipboard sections"
+      >
+        <div className="mx-auto flex max-w-7xl flex-wrap gap-2">
+          <Link
+            className={productTabClass(activeSection === "product")}
+            to="/realsim-clipboard"
+            aria-current={activeSection === "product" ? "page" : undefined}
+          >
+            Product
+          </Link>
+          <Link
+            className={productTabClass(activeSection === "support")}
+            to={`/realsim-clipboard${supportAnchor}`}
+            aria-current={activeSection === "support" ? "page" : undefined}
+          >
+            Support
+          </Link>
+          <Link
+            className={productTabClass(activeSection === "privacy")}
+            to={`/realsim-clipboard${privacyAnchor}`}
+            aria-current={activeSection === "privacy" ? "page" : undefined}
+          >
+            Privacy Policy
+          </Link>
+        </div>
+      </nav>
+
+      <section id="realsim-clipboard-product" className="scroll-mt-20 px-6 py-14 md:px-12 lg:px-20">
         <div className="mx-auto max-w-3xl">
           <p className="text-sm font-medium uppercase tracking-[0.25em] text-neutral-500">Product</p>
           <h1 className="mt-3 text-3xl font-semibold md:text-4xl">RealSIM Clipboard</h1>
@@ -260,7 +298,7 @@ function RealSIMClipboardPage() {
             handing data to the cloud.
           </p>
         </div>
-      </div>
+      </section>
 
       <section
         id="realsim-clipboard-support"
