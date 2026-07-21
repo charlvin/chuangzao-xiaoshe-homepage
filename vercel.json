@@ -1,3 +1,9 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/apps/appreleasehelper", "destination": "/appreleasehelper/product.html" },
+    { "source": "/apps/appreleasehelper/privacy", "destination": "/appreleasehelper/privacy.html" },
+    { "source": "/apps/appreleasehelper/support", "destination": "/appreleasehelper/support.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

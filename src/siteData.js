@@ -35,13 +35,18 @@ export const pageData = {
       status: "Preparing for launch",
     },
     {
-      category: "Developer Workflow",
-      name: "DevHelper",
+      category: "Developer Tool",
+      name: "AppReleaseHelper",
       description:
-        "A developer assistant concept for independent builders and small teams, aimed at reducing setup friction and context switching.",
-      symbol: "{ }",
-      logoSrc: "/devhelper-icon.png",
-      status: "Exploration",
+        "A fully offline macOS app that turns signing, privacy, screenshots, icons, and review preparation into a submission checklist tailored to your project.",
+      symbol: "\u2713",
+      logoSrc: "/appreleasehelper-icon.png",
+      status: "Coming soon",
+      docLinks: [
+        { label: "Product", href: "/apps/appreleasehelper" },
+        { label: "Support", href: "/apps/appreleasehelper/support" },
+        { label: "Privacy Policy", href: "/apps/appreleasehelper/privacy" },
+      ],
     },
     {
       category: "Social Software",
@@ -63,7 +68,7 @@ export const pageData = {
 };
 
 function validatePageData(data) {
-  const expectedProductNames = ["RealSIM Clipboard", "Daily Saying", "DevHelper", "Local Social", "BizRocker"];
+  const expectedProductNames = ["RealSIM Clipboard", "Daily Saying", "AppReleaseHelper", "Local Social", "BizRocker"];
   const productNames = data.products.map((product) => product.name);
   const uniqueProductNames = new Set(productNames);
 
