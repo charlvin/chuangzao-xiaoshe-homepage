@@ -243,10 +243,7 @@ function RealSIMClipboardPage() {
             ) : (
               <Mark>⌘C</Mark>
             )}
-            <div>
-              <div className="text-sm font-semibold">RealSIM Clipboard</div>
-              <div className="text-xs text-neutral-400">{pageData.company.shortName}</div>
-            </div>
+            <div className="text-sm font-semibold">RealSIM Clipboard</div>
           </div>
         </div>
       </header>
