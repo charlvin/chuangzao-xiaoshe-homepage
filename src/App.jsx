@@ -277,6 +277,9 @@ function RealSIMClipboardPage() {
           >
             Privacy Policy
           </Link>
+          <span className="inline-flex min-h-10 cursor-not-allowed items-center justify-center rounded-full border border-white/10 bg-white/[0.03] px-4 text-sm font-medium text-neutral-600">
+            Download (developing)
+          </span>
         </div>
       </nav>
 
@@ -297,20 +300,6 @@ function RealSIMClipboardPage() {
             Built for people who jump between documents, terminals, and Finder all day and want clipboard recall without
             handing data to the cloud.
           </p>
-          <div className="mt-8 flex flex-wrap gap-2">
-            <span className="inline-flex min-h-11 cursor-default items-center justify-center rounded-full bg-white px-5 text-sm font-medium text-neutral-400">
-              Coming soon on the Mac App Store
-            </span>
-            <Link className={productTabClass(true)} to="/realsim-clipboard" aria-current="page">
-              Product
-            </Link>
-            <Link className={productTabClass(false)} to={`/realsim-clipboard${supportAnchor}`}>
-              Support
-            </Link>
-            <Link className={productTabClass(false)} to={`/realsim-clipboard${privacyAnchor}`}>
-              Privacy Policy
-            </Link>
-          </div>
         </div>
       </section>
 
