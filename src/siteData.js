@@ -18,11 +18,17 @@ export const pageData = {
         "A lightweight macOS clipboard companion for people who move between documents, terminals, and Finder all day.",
       symbol: "⌘C",
       logoSrc: "/realsim-clipboard-icon.png",
-      status: "Polishing",
+      status: "Available on App Store",
+      appStoreUrl: "https://apps.apple.com/us/app/realsim-clipboard/id6765972157",
       docLinks: [
         { label: "Product", to: "/realsim-clipboard" },
         { label: "Support", to: "/realsim-clipboard#realsim-clipboard-support" },
         { label: "Privacy Policy", to: "/realsim-clipboard#realsim-clipboard-privacy" },
+        {
+          label: "Download",
+          href: "https://apps.apple.com/us/app/realsim-clipboard/id6765972157",
+          external: true,
+        },
       ],
     },
     {

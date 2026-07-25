@@ -67,7 +67,12 @@ function ProductDocLink({ link }) {
     );
   }
   return (
-    <a className={docLinkClassName} href={link.href}>
+    <a
+      className={docLinkClassName}
+      href={link.href}
+      target={link.external ? "_blank" : undefined}
+      rel={link.external ? "noreferrer" : undefined}
+    >
       {link.label}
     </a>
   );
@@ -201,7 +206,9 @@ function HomePage() {
 function RealSIMClipboardPage() {
   const location = useLocation();
   const { contactEmail } = pageData.company;
-  const realsimLogo = pageData.products.find((p) => p.name === "RealSIM Clipboard")?.logoSrc;
+  const realsimProduct = pageData.products.find((p) => p.name === "RealSIM Clipboard");
+  const realsimLogo = realsimProduct?.logoSrc;
+  const appStoreUrl = realsimProduct?.appStoreUrl;
   const supportAnchor = "#realsim-clipboard-support";
   const privacyAnchor = "#realsim-clipboard-privacy";
   const activeSection = location.hash === supportAnchor ? "support" : location.hash === privacyAnchor ? "privacy" : "product";
@@ -274,9 +281,14 @@ function RealSIMClipboardPage() {
           >
             Privacy Policy
           </Link>
-          <span className="inline-flex min-h-10 cursor-not-allowed items-center justify-center rounded-full border border-white/10 bg-white/[0.03] px-4 text-sm font-medium text-neutral-600">
-            Download (developing)
-          </span>
+          <a
+            className="inline-flex min-h-10 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] px-4 text-sm font-medium text-neutral-300 transition hover:border-white/30 hover:text-white"
+            href={appStoreUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Download
+          </a>
         </div>
       </nav>
 
