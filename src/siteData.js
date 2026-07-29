@@ -60,6 +60,15 @@ export const pageData = {
       ],
     },
     {
+      category: "Intentional Dating",
+      name: "bounto",
+      description:
+        "Intentional dating built around mutual compatibility, fewer and better matches, and meaningful relationships.",
+      symbol: "b",
+      logoSrc: "/bounto-icon.png",
+      status: "In development",
+    },
+    {
       category: "Social Software",
       name: "Local Social",
       description:
@@ -79,7 +88,14 @@ export const pageData = {
 };
 
 function validatePageData(data) {
-  const expectedProductNames = ["RealSIM Clipboard", "Daily Saying", "AppReleaseHelper", "Local Social", "BizRocker"];
+  const expectedProductNames = [
+    "RealSIM Clipboard",
+    "Daily Saying",
+    "AppReleaseHelper",
+    "bounto",
+    "Local Social",
+    "BizRocker",
+  ];
   const productNames = data.products.map((product) => product.name);
   const uniqueProductNames = new Set(productNames);
 
@@ -90,7 +106,7 @@ function validatePageData(data) {
     hasContactEmail:
       typeof data.company.contactEmail === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.company.contactEmail),
     hasHeroCopy: Boolean(data.company.heroLineA && data.company.heroLineB && data.company.summary),
-    hasFiveProducts: data.products.length === 5,
+    hasSixProducts: data.products.length === 6,
     hasAllExpectedProducts: expectedProductNames.every((name) => productNames.includes(name)),
     productNamesAreUnique: uniqueProductNames.size === productNames.length,
     productsHaveRequiredFields: data.products.every(
@@ -115,7 +131,7 @@ function runSelfChecks() {
   console.assert(result.hasShortCompanyName, "Expected short company name to be present.");
   console.assert(result.hasContactEmail, "Expected a valid contact email.");
   console.assert(result.hasHeroCopy, "Expected hero copy to be complete.");
-  console.assert(result.hasFiveProducts, "Expected exactly five product entries.");
+  console.assert(result.hasSixProducts, "Expected exactly six product entries.");
   console.assert(result.hasAllExpectedProducts, "Expected all required products to be present.");
   console.assert(result.productNamesAreUnique, "Expected product names to be unique.");
   console.assert(
